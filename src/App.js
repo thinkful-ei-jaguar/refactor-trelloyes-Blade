@@ -41,16 +41,15 @@ class App extends Component {
       'k': { id: 'k', title: 'Eleventh card', content: 'lorem ipsum' },
       'l': { id: 'l', title: 'Twelfth card', content: 'lorem ipsum' },
       'm': { id: 'm', title: 'Thirteenth card', content: 'lorem ipsum' },
-    },
-    test: false
+    }
 }
 
-static defaultProps = {
+  static defaultProps = {
   state: {
     lists: [],
     allCards: {}
   }
-}
+  }
 
   handleDeleteItem = (item) => {
     console.log(item);
@@ -74,12 +73,46 @@ static defaultProps = {
       lists: newLists,
       allCards: newCards
     })
-
-    console.log('new lists:', newLists, 'new cards:', newCards);
   }
 
-  handleRandomItem () {
-    console.log('handleRandomItem called');
+  handleRandomItem = (item) => {
+    
+    console.log(item);
+
+    const newRandomCard = () => {
+      const id = Math.random().toString(36).substring(2, 4)
+        + Math.random().toString(36).substring(2, 4);
+      return {
+        id,
+        title: `Random Card ${id}`,
+        content: 'lorem ipsum',
+      }
+    }
+
+    let testCard = newRandomCard();
+    const keyName = testCard.id;
+    const newCards = {
+      ...this.state.allCards,
+      [keyName]: testCard
+    }
+
+    
+    const newLists = this.state.lists.map ((itm, index) => {
+      if (itm.id === item) {
+        itm.cardIds.push(testCard.id);
+      }
+      return itm;
+    })
+    
+    
+    this.setState ({
+      allCards: newCards
+    })
+
+
+    console.log(newLists);
+
+
   }
 
   render() {
@@ -93,6 +126,7 @@ static defaultProps = {
             <List
               items={this.state.allCards}
               key={list.id}
+              listId={list.id}
               header={list.header}
               cards={list.cardIds.map(id => this.state.allCards[id])}
               deleteCallback={this.handleDeleteItem}

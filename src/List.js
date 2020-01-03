@@ -31,7 +31,7 @@ export default function List(props) {
         <button
           type='button'
           className='List-add-button'
-          onClick={props.randomCallback}
+          onClick={() => props.randomCallback(props.listId)}
         >
           + Add Random Card
         </button>
