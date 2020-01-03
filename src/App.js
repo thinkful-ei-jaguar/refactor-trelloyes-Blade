@@ -65,9 +65,10 @@ static defaultProps = {
       );
     }
     const newCards = omit(obj, keyToOmit);
-    const newLists = this.state.lists.map(item => 
-      item.cardIds.filter((itm) => itm !== keyToOmit )
-    )
+    const newLists = this.state.lists.map((item) =>  {
+      item.cardIds = item.cardIds.filter((itm) => itm !== keyToOmit);
+      return item;
+    })
     
     this.setState ({
       lists: newLists,
