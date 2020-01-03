@@ -106,7 +106,8 @@ class App extends Component {
     
     
     this.setState ({
-      allCards: newCards
+      allCards: newCards,
+      lists: newLists
     })
 
 
